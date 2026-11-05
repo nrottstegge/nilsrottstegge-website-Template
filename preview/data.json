@@ -1,0 +1,11 @@
+---
+layout: null
+---
+{
+  "profile": {{ site.data.profile | jsonify }},
+  "home": {{ site.data.home | jsonify }},
+  "legal": {{ site.data.legal | jsonify }},
+  "projects": [{% assign fields = 'title,kicker,short,summary,contribution,results,tech,links,media,cover,viewer,order' | split: ',' %}{% for project in site.projects %}{% unless forloop.first %},{% endunless %}
+    {"slug": {{ project.slug | default: project.basename_without_ext | jsonify }}, "url": {{ project.url | jsonify }}, "data": { {% for field in fields %}{% unless forloop.first %},{% endunless %}{{ field | jsonify }}: {{ project[field] | jsonify }}{% endfor %} }}
+  {% endfor %}]
+}

@@ -34,8 +34,28 @@ Nach erfolgreichem Pages-Deployment:
 In der Redaktion **Login** anklicken. Es werden weder GitHub/GitLab-Konto noch
 Passwort benötigt. Die vorhandenen Inhalte werden in den Browser kopiert.
 Bearbeiten, neue Projekte und Uploads ausprobieren; beim Neuladen werden alle
-Demo-Änderungen verworfen. Die Vorschau im Editor zeigt Änderungen, ein zweiter
-Website-Tab weiterhin den zuletzt veröffentlichten Jekyll-Build.
+Demo-Änderungen verworfen. Die Vorschau im Editor zeigt Änderungen. Ein normal geöffneter Website-Tab zeigt
+weiterhin den zuletzt veröffentlichten Jekyll-Build.
+
+### Änderungen privat auf der Website ansehen
+
+1. In `/admin/` einen Eintrag öffnen und Felder ändern.
+2. Unten **Website-Vorschau ↗** anklicken. Speichern ist dafür nicht nötig.
+3. Der neue Tab zeigt das Website-Layout mit dem aktuellen Formularstand und
+   einem Hinweis **Private Vorschau**. Die übrigen Inhalte stammen aus dem
+   veröffentlichten Build. Auch ein neues Projekt lässt sich so ansehen.
+4. Nach weiteren Änderungen erneut **Website-Vorschau** anklicken.
+
+Die Entwurfsdaten bleiben im geöffneten Editorfenster. Der Vorschau-Tab liest
+sie direkt aus diesem Fenster; sie stehen nicht im Link und werden weder auf
+GitHub gespeichert noch in Browser-Speicher geschrieben. Ein anderer Besucher
+sieht die veröffentlichte Website – auch mit kopiertem Vorschau-Link. Nach einem
+Neuladen des Editors ist der temporäre Formularstand verworfen.
+
+Diese Browser-Vorschau gilt für den Demo-Modus. Sie erzeugt keinen Jekyll-Build
+und startet keine Pipeline. Die öffentliche Datei `preview/data.json` enthält
+nur die bereits veröffentlichten Inhalte als Ausgangspunkt; private Eingaben
+werden ausschließlich im eigenen Browser darübergelegt.
 
 ### Einmalig einrichten
 

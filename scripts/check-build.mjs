@@ -31,6 +31,12 @@ const home = await readFile(new URL('index.html', root), 'utf8');
 const homeData = JSON.parse(await readFile(new URL('../_data/home.json', import.meta.url), 'utf8'));
 assert.equal((home.match(/data-k="\d+"/g) || []).length, 18 + homeData.more_skills.length);
 assert.ok(home.includes('data-title') && home.includes('data-cta'));
+const previewData = JSON.parse(await readFile(new URL('preview/data.json', root), 'utf8'));
+assert.ok(previewData.profile && previewData.home && previewData.legal && Array.isArray(previewData.projects));
+for (const project of previewData.projects) {
+  assert.ok(project.slug && project.url && project.data.title);
+  assert.ok(!('output' in project.data) && !('next' in project.data) && !('previous' in project.data), 'Vorschau enthält nur öffentliche Inhaltsfelder, keine rekursiven Jekyll-Dokumente.');
+}
 console.log(`${pages.length} Seiten, interne Links, Animation und Ausschluss privater Quelldateien geprüft.`);
 
 if (site.demo_only) {

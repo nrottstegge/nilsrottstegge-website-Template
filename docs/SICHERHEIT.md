@@ -106,3 +106,17 @@ Primärquellen: [GitLab OAuth](https://docs.gitlab.com/api/oauth2/),
 [Decap GitLab](https://decapcms.org/docs/gitlab-backend/),
 [GitLab Runner](https://docs.gitlab.com/ci/runners/),
 [HAProxy](https://docs.haproxy.org/3.2/configuration.html).
+
+## Private Website-Vorschau der Demo
+
+Der Editor übergibt ausschließlich den aktuellen Inhalt und aufgelöste
+Medienadressen an ein von ihm geöffnetes Fenster derselben Origin. Es werden
+keine Authentifizierungsdaten übergeben. Entwürfe stehen weder im Querystring
+noch in Local-/Session-Storage oder einem Server-Upload. Ein anderes Fenster
+mit demselben Link hat keinen Zugriff auf diese Daten. Das Öffnen der normalen
+Website verändert sie nicht.
+
+Die Darstellung verwendet Textknoten und geprüfte Link-/Medienadressen.
+Rich-Text-Markup wird auf erlaubte Elemente ohne Skripte, Event-Handler oder
+aktive eingebettete Dokumente begrenzt. Die Vorschau übernimmt den aktuell
+geöffneten Eintrag; sie ist kein Jekyll-Preview-Server für mehrere Entwurfsbranches.

@@ -10,7 +10,7 @@ layout: null
 <script src="{{ '/admin/init.js' | relative_url }}" defer></script>
 {% endif %}</head><body data-baseurl="{{ site.baseurl }}" data-demo="true">
 {% if jekyll.environment != 'production' or site.demo_enabled %}
-<aside class="demo-banner">Demo-Modus · kein GitLab-Konto nötig · Änderungen gelten nur bis zum Neuladen. <a href="{{ '/' | relative_url }}" target="_blank" rel="noopener">Website ansehen ↗</a></aside>
+<aside class="demo-banner">Demo-Modus · nichts wird veröffentlicht. <button type="button" data-website-preview disabled>Website-Vorschau ↗</button><span data-preview-status role="status"></span></aside>
 <p id="editor-status" role="status">Demo-Daten werden geladen …</p>
 {% else %}<main class="disabled-demo"><h1>Demo nicht freigeschaltet</h1><p>Für eine lokale Vorführung die Website mit <code>bundle exec jekyll serve</code> starten.</p><a href="{{ '/admin/' | relative_url }}">Zur echten Redaktion</a></main>{% endif %}
 </body></html>

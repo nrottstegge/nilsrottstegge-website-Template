@@ -14,4 +14,4 @@
 <script type="module" src="{{ '/assets/js/site.js' | relative_url }}"></script>
 {% if page.home %}<script type="module" src="{{ '/assets/js/hero-entry.js' | relative_url }}"></script>{% endif %}
 </head>
-<body><a class="skip" href="#main" data-astro-cid-hkbrpulz>Skip to content</a>{% include header.html %}<main id="main" data-astro-cid-hkbrpulz>{{ content }}</main>{% include footer.html %}</body></html>
+<body data-preview-base="{{ site.baseurl }}"><a class="skip" href="#main" data-astro-cid-hkbrpulz>Skip to content</a>{% include header.html %}<main id="main" data-astro-cid-hkbrpulz>{{ content }}</main>{% include footer.html %}{% if site.demo_only or site.demo_enabled or jekyll.environment != 'production' %}{% include preview-templates.html %}{% endif %}</body></html>

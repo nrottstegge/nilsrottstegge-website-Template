@@ -2,6 +2,10 @@
   const base = document.body.dataset.baseurl || '';
   const demo = document.body.dataset.demo === 'true';
   const status = document.getElementById('editor-status');
+  const previewButton = document.querySelector('[data-website-preview]');
+  const previewStatus = document.querySelector('[data-preview-status]');
+  const previewWindowName = `cms-website-preview-${crypto.randomUUID()}`;
+  let previewModel, current;
   try {
     const response = await fetch(`${base}/admin/config.yml`, { cache: 'no-store' });
     if (!response.ok) throw new Error('Redaktionskonfiguration konnte nicht geladen werden.');
@@ -29,28 +33,82 @@
       config.backend = { name: 'test-repo' };
       config.site_url = `${location.origin}${base}`;
       config.display_url = config.site_url;
+      const modelResponse = await fetch(`${base}/preview/data.json`);
+      if (!modelResponse.ok) throw new Error('Die Website-Vorschau konnte nicht geladen werden.');
+      previewModel = await modelResponse.json();
+      window.getWebsitePreview = () => {
+        const snapshot = structuredClone(previewModel);
+        snapshot.projectFallback = previewModel.projects[0]?.url;
+        if (current?.kind === 'project') {
+          const existing = snapshot.projects.find(project => project.slug === current.slug);
+          if (existing) existing.data = assets(current.data);
+          else snapshot.projects.push({ slug: current.slug, data: assets(current.data) });
+        } else if (current) {
+          snapshot[current.kind] = assets(current.data);
+        }
+        if (current?.kind === 'project') {
+          const frame = [...document.querySelectorAll('iframe')].find(frame => frame.contentDocument?.querySelector('[data-preview-body]'));
+          const body = frame?.contentDocument.querySelector('[data-preview-body]');
+          const project = snapshot.projects.find(project => project.slug === current.slug);
+          if (body && project) project.bodyHtml = body.innerHTML;
+        }
+        return structuredClone(snapshot);
+      };
+      previewButton?.addEventListener('click', () => {
+        let path = current?.kind === 'legal' ? '/legal/' : '/';
+        if (current?.kind === 'project') path = previewModel.projects.find(project => project.slug === current.slug)?.url || previewModel.projects[0]?.url || '/';
+        const url = new URL(`${base}${path}`, location.origin);
+        url.searchParams.set('cms-preview', '1');
+        url.searchParams.set('cms-preview-version', Date.now());
+        if (current?.kind === 'project') url.searchParams.set('cms-preview-project', current.slug);
+        const opened = window.open(url.href, previewWindowName);
+        if (previewStatus) previewStatus.textContent = opened ? 'Private Vorschau geöffnet.' : 'Bitte Pop-ups für die Vorschau erlauben.';
+      });
     }
     // GitLab PKCE runs directly in Decap; no client secret is sent to the browser.
     if (!demo && location.protocol !== 'https:' && !['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) throw new Error('Die echte Redaktion benötigt HTTPS.');
+    function assets(value, key = '') {
+      if (Array.isArray(value)) return value.map(item => assets(item));
+      if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([name, item]) => [name, assets(item, name)]));
+      if (current?.getAsset && typeof value === 'string' && value && ['image', 'poster', 'cv_file', 'video_file'].includes(key)) {
+        const url = current.getAsset(value).toString();
+        return base && url.startsWith('/') && !url.startsWith(`${base}/`) ? `${base}${url}` : url;
+      }
+      return value;
+    }
     const h = window.h;
+    function remember(kind, entry, getAsset) {
+      if (!demo || !previewModel) return;
+      const slug = kind === 'project' ? entry.get('slug') || '__new-project__' : kind;
+      current = { kind, slug, data: entry.get('data').toJS(), getAsset };
+      if (previewButton) previewButton.disabled = false;
+    }
     if (h) {
       window.CMS.registerPreviewStyle('body{font:16px/1.65 system-ui,sans-serif;padding:32px;color:#0e1014;background:#fafaf8}h1{font-size:40px;line-height:1.1}p{max-width:65ch}img{max-width:100%;border-radius:12px}.tags{display:flex;gap:8px;flex-wrap:wrap}', { raw: true });
       window.CMS.registerPreviewTemplate('projects', ({ entry, getAsset, widgetFor }) => {
+        remember('project', entry, getAsset);
         const item = entry.get('data').toJS();
         const pictures = (item.media || []).filter(media => media.image);
         const imageUrl = file => {
           const url = getAsset(file).toString();
           return base && url.startsWith('/') && !url.startsWith(`${base}/`) ? `${base}${url}` : url;
         };
-        return h('article', {}, h('p', {}, item.kicker), h('h1', {}, item.title), h('p', {}, item.summary), ...pictures.map((media, i) => h('figure', { key: i }, h('img', { src: imageUrl(media.image), alt: media.alt || '' }), h('figcaption', {}, media.caption))), h('h2', {}, 'Mein Beitrag'), h('ul', {}, ...(item.contribution || []).map((text, i) => h('li', { key: i }, text))), h('h2', {}, 'Ergebnisse'), h('ul', {}, ...(item.results || []).map((text, i) => h('li', { key: i }, text))), widgetFor('body'));
+        return h('article', {}, h('p', {}, item.kicker), h('h1', {}, item.title), h('p', {}, item.summary), ...pictures.map((media, i) => h('figure', { key: i }, h('img', { src: imageUrl(media.image), alt: media.alt || '' }), h('figcaption', {}, media.caption))), h('h2', {}, 'Mein Beitrag'), h('ul', {}, ...(item.contribution || []).map((text, i) => h('li', { key: i }, text))), h('h2', {}, 'Ergebnisse'), h('ul', {}, ...(item.results || []).map((text, i) => h('li', { key: i }, text))), h('div', { 'data-preview-body': true }, widgetFor('body')));
       });
-      window.CMS.registerPreviewTemplate('profile', ({ entry }) => {
+      window.CMS.registerPreviewTemplate('profile', ({ entry, getAsset }) => {
+        remember('profile', entry, getAsset);
         const item = entry.get('data').toJS();
         return h('article', {}, h('h1', {}, item.name), h('p', {}, item.about), h('h2', {}, 'Kontakt'), h('p', {}, item.email), h('p', {}, item.contact_intro));
       });
-      window.CMS.registerPreviewTemplate('home', ({ entry }) => {
+      window.CMS.registerPreviewTemplate('home', ({ entry, getAsset }) => {
+        remember('home', entry, getAsset);
         const item = entry.get('data').toJS();
         return h('article', {}, h('p', {}, item.kicker), h('h1', {}, item.subtitle), ...(item.highlights || []).map((row, i) => h('section', { key: i }, h('h2', {}, row.label), h('p', {}, row.description))), h('h2', {}, item.projects_title), h('p', {}, item.projects_intro), h('h2', {}, item.cv_title), h('p', {}, item.cv_intro));
+      });
+      window.CMS.registerPreviewTemplate('legal', ({ entry }) => {
+        remember('legal', entry);
+        const item = entry.get('data').toJS();
+        return h('article', {}, h('h1', {}, item.title), ...(item.sections || []).map((section, index) => h('section', { key: index }, h('h2', {}, section.title), ...(section.paragraphs || []).map((text, i) => h('p', { key: i }, text)))));
       });
     }
     window.CMS.init({ config });

@@ -5,15 +5,22 @@
 1. Online die im README verlinkte GitHub-Pages-Demo unter `/admin/` öffnen.
    Alternativ lokal nach dem Build `npm run demo` starten und
    <http://127.0.0.1:4000/admin/demo/> öffnen.
-3. Auf **Login** klicken. Es wird kein GitLab-Konto und kein Passwort verlangt.
-4. Unter **Website** beispielsweise die Themenzeile ändern oder unter
-   **Projekte** ein Projekt auswählen.
-5. Änderungen und Vorschau zeigen. Speichern und den redaktionellen Workflow
-   ausprobieren. Beim Neuladen verschwinden alle Demo-Änderungen.
+2. Auf **Login** klicken. Es wird kein GitLab-Konto und kein Passwort verlangt.
+3. Unter **Website** oder **Projekte** einen Eintrag öffnen und ändern.
+4. Unten **Website-Vorschau ↗** anklicken. Im neuen Tab erscheint das normale
+   Website-Layout mit den aktuellen Eingaben. Dafür muss nichts gespeichert werden.
+5. Weiter bearbeiten und zum Aktualisieren erneut **Website-Vorschau** anklicken.
 
-Die Demo ändert weder Git-Dateien noch die echte Website. Der grüne Hinweis
-unten kennzeichnet den Modus. Die Website in einem zweiten Tab zeigt den
-ursprünglichen Build, nicht die im Browser geänderten Demo-Daten.
+Die Vorschau zeigt den aktuellen Eintrag; andere Inhalte stammen aus dem
+veröffentlichten Build. Der Hinweis **Private Vorschau** kennzeichnet den Tab.
+Ein regulärer Website-Tab zeigt weiterhin die öffentliche Version. Ein kopierter
+Vorschau-Link enthält keine Änderungen und zeigt sie einem anderen Besucher nicht.
+
+Es werden keine Git-Dateien verändert und keine Inhalte unter deinem Namen
+veröffentlicht. Die Änderungen liegen nur im geöffneten Editorfenster und werden
+beim Neuladen verworfen. Falls der Browser den Vorschau-Tab blockiert, Pop-ups
+für die Demo erlauben. Die integrierte vereinfachte Vorschau rechts im Editor
+bleibt ebenfalls verfügbar.
 
 ## Echte Redaktion
 

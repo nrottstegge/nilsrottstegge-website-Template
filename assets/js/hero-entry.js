@@ -1,3 +1,4 @@
+import './preview.js';
 const scene = document.getElementById('top');
 if (scene) {
   const start = () => import('./hero/main.js').then(({ init }) => init(scene));

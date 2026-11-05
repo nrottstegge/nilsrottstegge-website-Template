@@ -1,3 +1,4 @@
+import './preview.js';
 import { whenNear } from './lib/scroll.js';
 
 // Keep the original lazy video loading and interactive HBDIA illustration.

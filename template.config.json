@@ -1,0 +1,8 @@
+{
+  "repo": "university-group/website",
+  "branch": "main",
+  "siteUrl": "https://www.example.com",
+  "gitlabUrl": "https://gitlab.example.edu",
+  "applicationId": "YOUR-GITLAB-APPLICATION-ID",
+  "demoEnabled": false
+}

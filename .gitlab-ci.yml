@@ -1,0 +1,65 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+
+stages: [validate, build, verify, deploy]
+
+validate:
+  image: node:22-bookworm-slim
+  stage: validate
+  script:
+    - npm run seed
+    - npm run check -- --production
+    - npm test
+  artifacts:
+    paths:
+      - admin/demo/seed.json
+    expire_in: 1 week
+
+build:
+  image: ruby:3.3-bookworm
+  stage: build
+  needs:
+    - job: validate
+      artifacts: true
+  variables:
+    BUNDLE_PATH: vendor/bundle
+  cache:
+    key:
+      files: [Gemfile.lock]
+    paths: [vendor/bundle/]
+  script:
+    - bundle install --jobs 4 --retry 3
+    - JEKYLL_ENV=production bundle exec jekyll build --trace
+  artifacts:
+    paths: [_site/]
+    expire_in: 1 week
+
+verify:
+  image: node:22-bookworm-slim
+  stage: verify
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    - node scripts/check-build.mjs
+
+deploy:
+  stage: deploy
+  tags: [website-deploy]
+  needs:
+    - job: build
+      artifacts: true
+    - job: verify
+      artifacts: false
+  resource_group: website-production
+  environment:
+    name: production
+    url: $PUBLIC_SITE_URL
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED == "true"'
+  script:
+    - bash scripts/deploy-release.sh

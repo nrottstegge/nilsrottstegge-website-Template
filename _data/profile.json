@@ -1,0 +1,13 @@
+{
+  "name": "Nils Rottstegge",
+  "name_first": "Nils",
+  "name_last": "Rottstegge",
+  "email": "nils@rottstegge.ch",
+  "github": "https://github.com/nrottstegge",
+  "linkedin": "https://www.linkedin.com/in/nilsrottstegge",
+  "cv_file": "/cv/nils-rottstegge-cv.pdf",
+  "page_title": "Nils Rottstegge · HPC & GPU Computing",
+  "description": "Nils Rottstegge, M.Sc. Computer Science student at ETH Zurich. High-performance computing, GPU computing, sparse linear algebra and adaptive trees.",
+  "about": "I study Computer Science at ETH Zurich (M.Sc., Data Management Systems) and work on high-performance and GPU computing: sparse linear algebra, multi-GPU solvers and adaptive trees. Before computer science I earned a B.Eng. in Audiovisual Media, and I have worked as a live-TV video engineer since 2015.",
+  "contact_intro": "Questions, opportunities or a good sparse matrix? Write me."
+}

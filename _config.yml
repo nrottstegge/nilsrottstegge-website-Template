@@ -1,0 +1,54 @@
+{
+  "url": "https://www.example.com",
+  "baseurl": "",
+  "lang": "en",
+  "timezone": "Europe/Zurich",
+  "encoding": "utf-8",
+  "markdown": "kramdown",
+  "kramdown": {
+    "input": "GFM",
+    "hard_wrap": false
+  },
+  "strict_front_matter": true,
+  "collections": {
+    "projects": {
+      "output": true,
+      "permalink": "/projects/:name/"
+    }
+  },
+  "defaults": [
+    {
+      "scope": {
+        "path": ""
+      },
+      "values": {
+        "layout": "default"
+      }
+    },
+    {
+      "scope": {
+        "path": "",
+        "type": "projects"
+      },
+      "values": {
+        "layout": "project"
+      }
+    }
+  ],
+  "exclude": [
+    "Gemfile",
+    "Gemfile.lock",
+    "README.md",
+    "docs",
+    "scripts",
+    "tests",
+    "package.json",
+    "node_modules",
+    "vendor",
+    "template.config.json",
+    ".bundle",
+    "deploy"
+  ],
+  "demo_enabled": false,
+  "demo_only": false
+}

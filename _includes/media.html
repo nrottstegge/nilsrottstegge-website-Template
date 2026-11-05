@@ -1,0 +1,6 @@
+<figure class="media{% if m.paper %} paper{% endif %}{% if m.interactive %} live{% endif %}{% if m.video or m.video_file %} clip{% endif %}" data-astro-cid-kg7vladn>
+{% if m.interactive %}{% case m.interactive %}{% when 'hbdia' %}{% include figures/hbdia.html %}{% when 'hpcg-speedup' %}{% include figures/hpcg-speedup.html %}{% when 'hpcg-weak-scaling' %}{% include figures/hpcg-weak-scaling.html %}{% when 'box-colouring' %}{% include figures/box-colouring.html %}{% endcase %}
+{% elsif m.video_file %}<video muted loop playsinline preload="none" data-poster="{{ m.poster | relative_url }}" data-h264="{{ m.video_file | relative_url }}" aria-label="{{ m.alt | escape }}" data-astro-cid-kg7vladn></video>
+{% elsif m.video %}<video muted loop playsinline preload="none" data-poster="{{ m.video | append: '.webp' | relative_url }}" data-av1="{{ m.video | append: '.av1.mp4' | relative_url }}" data-h264="{{ m.video | append: '.h264.mp4' | relative_url }}" aria-label="{{ m.alt | escape }}" data-astro-cid-kg7vladn></video>
+{% else %}<img src="{{ m.image | relative_url }}" alt="{{ m.alt | escape }}" loading="lazy" decoding="async" data-astro-cid-kg7vladn>{% endif %}
+{% if include.full %}<figcaption data-astro-cid-yq2gsstb>{{ m.caption | escape }}</figcaption>{% endif %}</figure>

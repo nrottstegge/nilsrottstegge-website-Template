@@ -1,0 +1,25 @@
+{
+  "title": "Privacy & contact",
+  "sections": [
+    {
+      "title": "Responsible",
+      "paragraphs": [
+        "Nils Rottstegge, Zurich, Switzerland. Email: nils@rottstegge.ch"
+      ]
+    },
+    {
+      "title": "Privacy",
+      "paragraphs": [
+        "This portfolio uses self-hosted fonts and media and does not include analytics. The hosting operator processes technically necessary connection data to serve and protect the website.",
+        "The public website is delivered through the operator’s HAProxy and internal webserver. Before publication, the operator must provide their actual contact details, hosting information and privacy statement here.",
+        "The editorial area uses Decap CMS with the university’s GitLab via OAuth and PKCE. Authentication data is processed by GitLab and stored by the editor in the browser. The separate demo uses only browser-memory copies and cannot change this website."
+      ]
+    },
+    {
+      "title": "Image credits",
+      "paragraphs": [
+        "Logos: ETH Zürich, Forschungszentrum Jülich, CSCS (ALPS), JSC (JUPITER). GH200 photo: NVIDIA. Simulation footage and figures: my own work with the help of artificial intelligence."
+      ]
+    }
+  ]
+}

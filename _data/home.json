@@ -1,0 +1,84 @@
+{
+  "kicker": "High-Performance Computing · GPU Computing",
+  "subtitle": "M.Sc. Computer Science, ETH Zurich",
+  "projects_title": "Selected work",
+  "projects_intro": "Adaptive trees, sparse matrix formats, multi-GPU solvers and PDEs on GPUs.",
+  "cv_title": "My CV.",
+  "cv_intro": "One page, as a PDF.",
+  "glyph_skills": [
+    "CUDA",
+    "C/C++",
+    "CUDA-aware MPI",
+    "NCCL",
+    "OpenMP",
+    "OpenACC",
+    "HIP / hipify",
+    "CUDA Graphs",
+    "CUB",
+    "cuBLAS",
+    "cuSPARSE",
+    "Nsight Compute",
+    "Nsight Systems",
+    "Python",
+    "Julia",
+    "Slurm",
+    "CMake",
+    "Roofline analysis"
+  ],
+  "more_skills": [
+    "CUDA Fortran",
+    "cuFFT",
+    "cuRAND",
+    "cuTENSOR",
+    "Git",
+    "Catch2 / CTest",
+    "Compute Sanitizer",
+    "cuda-gdb",
+    "Java",
+    "SQL / PostgreSQL"
+  ],
+  "highlights": [
+    {
+      "label": "Studying at",
+      "description": "M.Sc. Computer Science, major in Data Management Systems",
+      "logos": [
+        {
+          "image": "/media/logos/eth.webp",
+          "alt": "ETH Zürich",
+          "caption": "",
+          "style": "eth"
+        }
+      ]
+    },
+    {
+      "label": "Worked at",
+      "description": "Jülich Supercomputing Centre, Guest Student Programme 2026",
+      "logos": [
+        {
+          "image": "/media/logos/fzj.svg",
+          "alt": "Forschungszentrum Jülich",
+          "caption": "",
+          "style": "fzj"
+        }
+      ]
+    },
+    {
+      "label": "Computed on",
+      "description": "",
+      "logos": [
+        {
+          "image": "/media/logos/alps.webp",
+          "alt": "ALPS",
+          "caption": "CSCS, Lugano",
+          "style": "sq"
+        },
+        {
+          "image": "/media/logos/jupiter.webp",
+          "alt": "JUPITER",
+          "caption": "JUPITER, Jülich",
+          "style": "sq"
+        }
+      ]
+    }
+  ]
+}

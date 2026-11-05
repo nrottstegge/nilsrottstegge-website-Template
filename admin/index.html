@@ -1,0 +1,18 @@
+---
+layout: null
+---
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+{% capture csp %}{% include_relative security-policy.txt %}{% endcapture %}
+<meta http-equiv="Content-Security-Policy" content="{{ csp | strip | escape }}">
+<title>Redaktion</title><link rel="icon" href="{{ '/icon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="stylesheet" href="{{ '/admin/editor.css' | relative_url }}">
+<script src="{{ '/admin/manual.js' | relative_url }}"></script>
+<script src="{{ '/admin/vendor/decap-cms.js' | relative_url }}" defer></script>
+<script src="{{ '/admin/init.js' | relative_url }}" defer></script>
+</head><body data-baseurl="{{ site.baseurl }}" data-demo="{% if site.demo_only %}true{% else %}false{% endif %}">
+{% if site.demo_only %}<aside class="demo-banner">Demo-Modus · ohne Konto · Änderungen gelten nur bis zum Neuladen. <a href="{{ '/' | relative_url }}" target="_blank" rel="noopener">Website ansehen ↗</a></aside>{% endif %}
+<noscript>Bitte JavaScript aktivieren, um die Redaktion zu nutzen.</noscript>
+<p id="editor-status" role="status">Redaktion wird geladen …</p>
+</body></html>

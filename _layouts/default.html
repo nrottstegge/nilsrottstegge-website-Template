@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}" data-astro-cid-hkbrpulz>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+{% if site.demo_only %}<meta name="robots" content="noindex,nofollow">{% endif %}
+{% capture page_title %}{% if page.title %}{{ page.title }} · {{ site.data.profile.name }}{% else %}{{ site.data.profile.page_title }}{% endif %}{% endcapture %}
+<title>{{ page_title | strip | escape }}</title>
+<meta name="description" content="{{ page.short | default: page.description | default: site.data.profile.description | escape }}">
+<meta name="theme-color" content="#fafaf8"><link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="icon" href="{{ '/favicon.ico' | relative_url }}" type="image/x-icon" sizes="32x32"><link rel="icon" href="{{ '/favicon.png' | relative_url }}" type="image/png" sizes="180x180"><link rel="icon" href="{{ '/icon.svg' | relative_url }}" type="image/svg+xml" sizes="any"><link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}" sizes="180x180">
+<link rel="preload" href="{{ '/fonts/lato-900.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin><link rel="preload" href="{{ '/fonts/lato-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+<meta property="og:title" content="{{ page_title | strip | escape }}"><meta property="og:description" content="{{ page.short | default: site.data.profile.description | escape }}"><meta property="og:type" content="website"><meta property="og:url" content="{{ page.url | absolute_url }}">
+<script type="module" src="{{ '/assets/js/site.js' | relative_url }}"></script>
+{% if page.home %}<script type="module" src="{{ '/assets/js/hero-entry.js' | relative_url }}"></script>{% endif %}
+</head>
+<body><a class="skip" href="#main" data-astro-cid-hkbrpulz>Skip to content</a>{% include header.html %}<main id="main" data-astro-cid-hkbrpulz>{{ content }}</main>{% include footer.html %}</body></html>

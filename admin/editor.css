@@ -1,0 +1,6 @@
+body{margin:0;font-family:system-ui,sans-serif;background:#fafaf8;color:#0e1014}
+.demo-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;min-height:38px;padding:8px 16px;box-sizing:border-box;background:#163c32;color:#fff;font:14px/1.5 system-ui,sans-serif;text-align:center}
+.demo-banner a{color:inherit;margin-left:12px}
+body[data-demo="true"]{padding-bottom:44px}
+#editor-status{padding:5rem 2rem;text-align:center}
+.disabled-demo{max-width:42rem;margin:6rem auto;padding:2rem}

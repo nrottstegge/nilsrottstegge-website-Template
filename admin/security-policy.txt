@@ -1,0 +1,1 @@
+default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://gitlab.example.edu; font-src 'self' data:; connect-src 'self' blob: https://gitlab.example.edu; frame-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'self' https://gitlab.example.edu; upgrade-insecure-requests

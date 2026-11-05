@@ -1,0 +1,31 @@
+# Load within Nginx's http {} context. Firewall: accept only the HAProxy hosts.
+# Replace certificate paths, hostname and document root before validation.
+server {
+    listen 8443 ssl;
+    server_name web-internal.example.edu;
+    ssl_certificate /etc/nginx/tls/web-internal.fullchain.pem;
+    ssl_certificate_key /etc/nginx/tls/web-internal.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    server_tokens off;
+    root /srv/www/portfolio/current;
+    index index.html;
+
+    # Disable this server's access log to avoid logging OAuth code query strings.
+    # Central HAProxy logging uses path-only format. Do not enable query logging.
+    access_log off;
+    location ~ (^|/)\. { deny all; }
+    location = /admin { return 308 /admin/; }
+    location = /admin/config.yml {
+        default_type application/json;
+        add_header Cache-Control "no-store" always;
+        try_files $uri =404;
+    }
+    location /admin/ {
+        add_header Cache-Control "no-store" always;
+        add_header X-Robots-Tag "noindex, nofollow" always;
+        try_files $uri $uri/ =404;
+    }
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

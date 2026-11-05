@@ -1,0 +1,571 @@
+{
+  "backend": {
+    "name": "gitlab",
+    "repo": "university-group/website",
+    "branch": "main",
+    "auth_type": "pkce",
+    "app_id": "YOUR-GITLAB-APPLICATION-ID",
+    "api_root": "https://gitlab.example.edu/api/v4",
+    "base_url": "https://gitlab.example.edu",
+    "auth_endpoint": "oauth/authorize"
+  },
+  "locale": "de",
+  "publish_mode": "editorial_workflow",
+  "media_folder": "uploads",
+  "public_folder": "/uploads",
+  "site_url": "https://www.example.com",
+  "display_url": "https://www.example.com",
+  "logo_url": "/icon.svg",
+  "show_preview_links": false,
+  "collections": [
+    {
+      "name": "settings",
+      "label": "Website",
+      "files": [
+        {
+          "name": "profile",
+          "label": "Profil, Kontakt und CV",
+          "file": "_data/profile.json",
+          "format": "json",
+          "fields": [
+            {
+              "name": "name",
+              "label": "Vollständiger Name",
+              "widget": "string"
+            },
+            {
+              "name": "name_first",
+              "label": "Erste Namenszeile",
+              "widget": "string"
+            },
+            {
+              "name": "name_last",
+              "label": "Zweite Namenszeile",
+              "widget": "string"
+            },
+            {
+              "name": "email",
+              "label": "E-Mail-Adresse",
+              "widget": "string",
+              "pattern": [
+                "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                "Bitte eine E-Mail-Adresse eingeben."
+              ]
+            },
+            {
+              "name": "github",
+              "label": "GitHub-Adresse",
+              "widget": "string",
+              "pattern": [
+                "^https://[^\\s]+$",
+                "Bitte eine vollständige HTTPS-Adresse eingeben."
+              ]
+            },
+            {
+              "name": "linkedin",
+              "label": "LinkedIn-Adresse",
+              "widget": "string",
+              "pattern": [
+                "^https://[^\\s]+$",
+                "Bitte eine vollständige HTTPS-Adresse eingeben."
+              ]
+            },
+            {
+              "name": "cv_file",
+              "label": "Lebenslauf (PDF)",
+              "widget": "file",
+              "hint": "Hier die neue PDF-Datei hochladen oder auswählen."
+            },
+            {
+              "name": "page_title",
+              "label": "Titel der Startseite (Suchmaschinen)",
+              "widget": "string"
+            },
+            {
+              "name": "description",
+              "label": "Beschreibung (Suchmaschinen)",
+              "widget": "text"
+            },
+            {
+              "name": "about",
+              "label": "Über mich",
+              "widget": "text"
+            },
+            {
+              "name": "contact_intro",
+              "label": "Einleitung Kontaktbereich",
+              "widget": "text"
+            }
+          ]
+        },
+        {
+          "name": "home",
+          "label": "Startseite und Animation",
+          "file": "_data/home.json",
+          "format": "json",
+          "fields": [
+            {
+              "name": "kicker",
+              "label": "Themenzeile",
+              "widget": "string"
+            },
+            {
+              "name": "subtitle",
+              "label": "Untertitel",
+              "widget": "string"
+            },
+            {
+              "name": "projects_title",
+              "label": "Überschrift Projekte",
+              "widget": "string"
+            },
+            {
+              "name": "projects_intro",
+              "label": "Einleitung Projekte",
+              "widget": "text"
+            },
+            {
+              "name": "cv_title",
+              "label": "Überschrift CV",
+              "widget": "string"
+            },
+            {
+              "name": "cv_intro",
+              "label": "Einleitung CV",
+              "widget": "string"
+            },
+            {
+              "name": "glyph_skills",
+              "label": "18 Begriffe für die CV-Animation",
+              "widget": "list",
+              "field": {
+                "name": "value",
+                "label": "Text",
+                "widget": "string"
+              },
+              "min": 18,
+              "max": 18,
+              "hint": "Die Animation benötigt genau 18 Begriffe."
+            },
+            {
+              "name": "more_skills",
+              "label": "Weitere Fähigkeiten",
+              "widget": "list",
+              "field": {
+                "name": "value",
+                "label": "Text",
+                "widget": "string"
+              }
+            },
+            {
+              "name": "highlights",
+              "label": "Drei Stationen der Animation",
+              "widget": "list",
+              "min": 3,
+              "max": 3,
+              "fields": [
+                {
+                  "name": "label",
+                  "label": "Überschrift",
+                  "widget": "string"
+                },
+                {
+                  "name": "description",
+                  "label": "Beschreibung",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "name": "logos",
+                  "label": "Logos",
+                  "widget": "list",
+                  "min": 1,
+                  "max": 2,
+                  "fields": [
+                    {
+                      "name": "image",
+                      "label": "Logo",
+                      "widget": "image",
+                      "required": true
+                    },
+                    {
+                      "name": "alt",
+                      "label": "Bezeichnung",
+                      "widget": "string"
+                    },
+                    {
+                      "name": "caption",
+                      "label": "Bildunterschrift",
+                      "widget": "string",
+                      "required": false
+                    },
+                    {
+                      "name": "style",
+                      "label": "Darstellung",
+                      "widget": "select",
+                      "options": [
+                        {
+                          "label": "Breites Logo",
+                          "value": "eth"
+                        },
+                        {
+                          "label": "Mittleres Logo",
+                          "value": "fzj"
+                        },
+                        {
+                          "label": "Kompaktes Logo",
+                          "value": "sq"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "legal",
+          "label": "Datenschutz und Bildnachweise",
+          "file": "_data/legal.json",
+          "format": "json",
+          "fields": [
+            {
+              "name": "title",
+              "label": "Seitentitel",
+              "widget": "string"
+            },
+            {
+              "name": "sections",
+              "label": "Abschnitte",
+              "widget": "list",
+              "fields": [
+                {
+                  "name": "title",
+                  "label": "Überschrift",
+                  "widget": "string"
+                },
+                {
+                  "name": "paragraphs",
+                  "label": "Absätze",
+                  "widget": "list",
+                  "field": {
+                    "name": "paragraph",
+                    "label": "Absatz",
+                    "widget": "text"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "projects",
+      "label": "Projekte",
+      "label_singular": "Projekt",
+      "folder": "_projects",
+      "create": true,
+      "delete": true,
+      "extension": "md",
+      "format": "frontmatter",
+      "slug": "{{slug}}",
+      "summary": "{{title}}",
+      "sortable_fields": [
+        "order",
+        "title"
+      ],
+      "preview_path": "projects/{{slug}}/",
+      "fields": [
+        {
+          "name": "title",
+          "label": "Titel",
+          "widget": "string"
+        },
+        {
+          "name": "order",
+          "label": "Reihenfolge",
+          "widget": "number",
+          "value_type": "int",
+          "min": 1,
+          "default": 1
+        },
+        {
+          "name": "kicker",
+          "label": "Kategorie / Zeitraum",
+          "widget": "string"
+        },
+        {
+          "name": "short",
+          "label": "Kurzbeschreibung",
+          "widget": "text"
+        },
+        {
+          "name": "summary",
+          "label": "Einleitung",
+          "widget": "text"
+        },
+        {
+          "name": "contribution",
+          "label": "Mein Beitrag",
+          "widget": "list",
+          "field": {
+            "name": "value",
+            "label": "Text",
+            "widget": "string"
+          }
+        },
+        {
+          "name": "results",
+          "label": "Ergebnisse",
+          "widget": "list",
+          "field": {
+            "name": "value",
+            "label": "Text",
+            "widget": "string"
+          }
+        },
+        {
+          "name": "tech",
+          "label": "Technologien",
+          "widget": "list",
+          "field": {
+            "name": "value",
+            "label": "Text",
+            "widget": "string"
+          }
+        },
+        {
+          "name": "links",
+          "label": "Weiterführende Links",
+          "widget": "list",
+          "fields": [
+            {
+              "name": "label",
+              "label": "Beschriftung",
+              "widget": "string"
+            },
+            {
+              "name": "href",
+              "label": "HTTPS-Adresse",
+              "widget": "string",
+              "pattern": [
+                "^https://[^\\s]+$",
+                "Bitte eine vollständige HTTPS-Adresse eingeben."
+              ]
+            }
+          ]
+        },
+        {
+          "name": "media",
+          "label": "Bilder, Videos und Abbildungen",
+          "widget": "list",
+          "min": 1,
+          "fields": [
+            {
+              "name": "image",
+              "label": "Bild",
+              "widget": "image",
+              "required": false
+            },
+            {
+              "name": "alt",
+              "label": "Alternativtext",
+              "widget": "string",
+              "hint": "Beschreibt das Bild für Menschen mit Sehbehinderung."
+            },
+            {
+              "name": "caption",
+              "label": "Bildunterschrift",
+              "widget": "text",
+              "required": false
+            },
+            {
+              "name": "paper",
+              "label": "Heller Rahmen für Diagramme",
+              "widget": "boolean",
+              "default": false,
+              "required": false
+            },
+            {
+              "name": "video_file",
+              "label": "Video (MP4)",
+              "widget": "file",
+              "required": false,
+              "media_library": {
+                "config": {
+                  "multiple": false
+                }
+              }
+            },
+            {
+              "name": "poster",
+              "label": "Vorschaubild für Video",
+              "widget": "image",
+              "required": false
+            },
+            {
+              "name": "video",
+              "label": "Vorbereitete Video-Serie (optional)",
+              "widget": "string",
+              "required": false,
+              "hint": "Für bestehende AV1/H264-Dateien: Pfad ohne Endung, z. B. /media/projects/adaptive-trees. Sonst das MP4-Feld verwenden."
+            },
+            {
+              "name": "interactive",
+              "label": "Interaktive Abbildung (optional)",
+              "widget": "select",
+              "required": false,
+              "options": [
+                {
+                  "label": "HBDIA",
+                  "value": "hbdia"
+                },
+                {
+                  "label": "HPCG Speedup",
+                  "value": "hpcg-speedup"
+                },
+                {
+                  "label": "HPCG Weak Scaling",
+                  "value": "hpcg-weak-scaling"
+                },
+                {
+                  "label": "Box Colouring",
+                  "value": "box-colouring"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "cover",
+          "label": "Abweichendes Bild auf der Startseite",
+          "widget": "object",
+          "required": false,
+          "collapsed": true,
+          "fields": [
+            {
+              "name": "image",
+              "label": "Bild",
+              "widget": "image",
+              "required": false
+            },
+            {
+              "name": "alt",
+              "label": "Alternativtext",
+              "widget": "string",
+              "hint": "Beschreibt das Bild für Menschen mit Sehbehinderung.",
+              "required": false
+            },
+            {
+              "name": "caption",
+              "label": "Bildunterschrift",
+              "widget": "text",
+              "required": false
+            },
+            {
+              "name": "paper",
+              "label": "Heller Rahmen für Diagramme",
+              "widget": "boolean",
+              "default": false,
+              "required": false
+            },
+            {
+              "name": "video_file",
+              "label": "Video (MP4)",
+              "widget": "file",
+              "required": false,
+              "media_library": {
+                "config": {
+                  "multiple": false
+                }
+              }
+            },
+            {
+              "name": "poster",
+              "label": "Vorschaubild für Video",
+              "widget": "image",
+              "required": false
+            },
+            {
+              "name": "video",
+              "label": "Vorbereitete Video-Serie (optional)",
+              "widget": "string",
+              "required": false,
+              "hint": "Für bestehende AV1/H264-Dateien: Pfad ohne Endung, z. B. /media/projects/adaptive-trees. Sonst das MP4-Feld verwenden."
+            },
+            {
+              "name": "interactive",
+              "label": "Interaktive Abbildung (optional)",
+              "widget": "select",
+              "required": false,
+              "options": [
+                {
+                  "label": "HBDIA",
+                  "value": "hbdia"
+                },
+                {
+                  "label": "HPCG Speedup",
+                  "value": "hpcg-speedup"
+                },
+                {
+                  "label": "HPCG Weak Scaling",
+                  "value": "hpcg-weak-scaling"
+                },
+                {
+                  "label": "Box Colouring",
+                  "value": "box-colouring"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "viewer",
+          "label": "Optionale 3D-Szenen",
+          "widget": "list",
+          "required": false,
+          "collapsed": true,
+          "fields": [
+            {
+              "name": "url",
+              "label": "Szenendatei",
+              "widget": "string",
+              "pattern": [
+                "^/media/viewer/[a-zA-Z0-9._-]+\\.html$",
+                "Bitte eine vorhandene HTML-Szene unter /media/viewer/ angeben."
+              ]
+            },
+            {
+              "name": "dataset",
+              "label": "Datensatz",
+              "widget": "string"
+            },
+            {
+              "name": "short",
+              "label": "Kurzname",
+              "widget": "string"
+            },
+            {
+              "name": "note",
+              "label": "Beschreibung",
+              "widget": "text"
+            },
+            {
+              "name": "particles",
+              "label": "Anzahl Partikel",
+              "widget": "string"
+            }
+          ]
+        },
+        {
+          "name": "body",
+          "label": "Zusätzlicher Inhalt",
+          "widget": "markdown",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

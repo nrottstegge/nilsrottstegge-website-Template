@@ -1,0 +1,34 @@
+import { readFile, access } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { cmsConfiguration } from './cms-schema.mjs';
+import { validateConfiguration } from './validate-config.mjs';
+const root = new URL('../', import.meta.url);
+const json = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'));
+const input = await json('template.config.json');
+validateConfiguration(input, process.argv.includes('--production'));
+const cms = await json('admin/config.yml');
+const site = await json('_config.yml');
+assert.deepEqual(cms, cmsConfiguration(input), 'Bitte node scripts/configure.mjs ausführen.');
+assert.equal(site.url, new URL(input.siteUrl).origin);
+assert.equal(site.baseurl, new URL(input.siteUrl).pathname.replace(/\/$/, ''));
+assert.equal(site.demo_enabled, input.demoEnabled);
+assert.equal(cms.backend.name, 'gitlab');
+assert.equal(cms.backend.auth_type, 'pkce');
+assert.equal(cms.backend.api_root, `${input.gitlabUrl}/api/v4`);
+assert.ok(!('client_secret' in cms.backend));
+assert.equal(cms.publish_mode, 'editorial_workflow');
+const home = await json('_data/home.json');
+assert.equal(home.glyph_skills.length, 18, 'Die CV-Animation benötigt genau 18 Begriffe.');
+assert.equal(home.highlights.length, 3, 'Die Animation benötigt drei Stationen.');
+for (const collection of cms.collections) for (const file of collection.files || []) await access(new URL(file.file, root));
+const version = await json('admin/vendor/version.json');
+const bundle = await readFile(new URL('admin/vendor/decap-cms.js', root));
+assert.equal(createHash('sha256').update(bundle).digest('hex'), version.bundle_sha256);
+for (const [name, expected] of Object.entries(version.files_sha256)) {
+  const bytes = await readFile(new URL(`admin/vendor/${name}`, root));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), expected, `Verändertes Decap-Asset: ${name}`);
+}
+const csp = await readFile(new URL('admin/security-policy.txt', root), 'utf8');
+assert.ok(csp.includes(`connect-src 'self' blob: ${input.gitlabUrl};`), 'CSP mit npm run configure aktualisieren.');
+console.log(`Konfiguration und Decap ${version.version} geprüft.`);

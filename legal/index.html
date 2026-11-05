@@ -1,0 +1,4 @@
+---
+title: Privacy & contact
+---
+<article class="wrap page" data-astro-cid-caydcdri><h1 data-astro-cid-caydcdri>{{ site.data.legal.title | escape }}</h1>{% for section in site.data.legal.sections %}<h2 data-astro-cid-caydcdri>{{ section.title | escape }}</h2>{% for paragraph in section.paragraphs %}<p data-astro-cid-caydcdri>{{ paragraph | escape }}</p>{% endfor %}{% endfor %}</article>

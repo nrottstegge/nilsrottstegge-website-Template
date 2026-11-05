@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<article class="wrap page" data-astro-cid-yq2gsstb>
+<a class="back mono" href="{{ '/#projects' | relative_url }}" data-astro-cid-yq2gsstb>← All projects</a>
+<p class="mono kicker" data-astro-cid-yq2gsstb>{{ page.kicker | escape }}</p><h1 data-astro-cid-yq2gsstb>{{ page.title | escape }}</h1><p class="lead" data-astro-cid-yq2gsstb>{{ page.summary | escape }}</p>
+<div class="gallery" data-astro-cid-yq2gsstb>{% for m in page.media %}{% include media.html full=true %}{% endfor %}</div>
+{% if page.viewer.size > 0 %}<section data-astro-cid-yq2gsstb><h2 data-astro-cid-yq2gsstb>Explore the trees in 3D</h2>{% include viewer.html %}</section>{% endif %}
+<section data-astro-cid-yq2gsstb><h2 data-astro-cid-yq2gsstb>My contribution</h2><ul class="list" data-astro-cid-yq2gsstb>{% for item in page.contribution %}<li data-astro-cid-yq2gsstb>{{ item | escape }}</li>{% endfor %}</ul></section>
+<section data-astro-cid-yq2gsstb><h2 data-astro-cid-yq2gsstb>Results</h2><ul class="list results" data-astro-cid-yq2gsstb>{% for item in page.results %}<li data-astro-cid-yq2gsstb>{{ item | escape }}</li>{% endfor %}</ul></section>
+<section class="facts" data-astro-cid-yq2gsstb><h2 data-astro-cid-yq2gsstb>Technologies</h2><ul class="tags" data-astro-cid-yq2gsstb>{% for tag in page.tech %}<li data-astro-cid-yq2gsstb>{{ tag | escape }}</li>{% endfor %}</ul></section>
+<section data-astro-cid-yq2gsstb><h2 data-astro-cid-yq2gsstb>Links</h2><ul class="links" data-astro-cid-yq2gsstb>{% for link in page.links %}<li data-astro-cid-yq2gsstb><a class="btn" href="{{ link.href | escape }}" rel="noopener" data-astro-cid-yq2gsstb>{{ link.label | escape }} <span aria-hidden="true" data-astro-cid-yq2gsstb>↗</span></a></li>{% endfor %}</ul></section>
+{% if content != empty %}<section class="prose-content" data-astro-cid-yq2gsstb>{{ content }}</section>{% endif %}
+{% assign ordered_projects = site.projects | sort: 'order' %}{% for project in ordered_projects %}{% if project.url == page.url %}{% assign next_index = forloop.index %}{% endif %}{% endfor %}{% assign next = ordered_projects[next_index] | default: ordered_projects[0] %}
+<a class="next" href="{{ next.url | relative_url }}" data-astro-cid-yq2gsstb><span class="mono" data-astro-cid-yq2gsstb>Next project →</span><strong data-astro-cid-yq2gsstb>{{ next.title | escape }}</strong></a>
+</article>
